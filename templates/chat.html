@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Socket.IO chat</title>
+        <link href="css/style.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <ul id="messages">
+            <li class="dullmessage"><span>Welcome to Socket chat!<br/>This chat is design and developed by Saurin Dashadia.<br/>Proudly Powerd by: Node.js</span>
+            </li>
+        </ul>
+        <div class="action">
+            <input id="chatText" autocomplete="off"/>
+            <input type="button" value="Send" id="sendChat"/>
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://cdn.socket.io/socket.io-1.0.6.js"></script>
+        <script src="js/script.js"></script>
+        <script type="text/javascript">
+            jQuery('document').ready(function () {
+                var chatHeight = jQuery(window).height() - jQuery('.action').height() - 15;
+                jQuery('#messages').css('height', chatHeight + 'px');
+
+                // Initiate SDNodeChat plugin
+                var SDNodeChat = jQuery.initSDNodeChat({
+                    server: 'http://192.168.36.26',
+                    port: '9999',
+                    chatContainer: jQuery('#messages'),
+                    sendButton: jQuery('#sendChat'),
+                    chatBox: jQuery('#chatText'),
+                    enterToSend: true
+                })
+
+            });
+        </script>
+    </body>
+</html>
