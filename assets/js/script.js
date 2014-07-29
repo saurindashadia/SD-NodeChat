@@ -33,14 +33,10 @@
             // Socket object
             socket: null,
 
-            // Incomming event for chat, This is what we used to emit message from server code
-            incommingEvent: 'getmessage',
-
             // Basic function to call on user action to send message.
             // this will calll function to add message to chat container as well as
             // will call function to push message to server
             sendMessage: function () {
-                console.log(this);
                 var message = this.chatBox.val();
                 if (!message) return false;
 
@@ -55,21 +51,46 @@
             addMessage: function (message, type) {
                 var li = '<li class="' + type + '"><span>' + message + '</span></li>';
                 $(this.chatContainer).append($(li));
-                $(document).scrollTop($(document).height());
+                $('#messages').scrollTop($('#messages').height());
             },
 
             // push message to server
             pushMessage: function (message, socket) {
-                message = '<p class="name"></p>&nbsp;&nbsp;&nbsp;' + message;
+                message = message;
                 this.socket.emit('sendmessage', { message: message, sender: this.socket.io.engine.id });
             },
 
             listenForMessage: function () {
                 var that = this;
-                that.socket.on(that.incommingEvent, function (data) {
-                    console.log(this);
+                that.socket.on('getmessage', function (data) {
                     if (data.sender != this.io.engine.id) {
                         that.addMessage(data.message, 'other');
+                    }
+                });
+            },
+
+            intro: function () {
+                var that = this;
+                that.socket.on('getIntro', function (data) {
+                    var clientName = prompt('Please intro yourself to chatroom!', 'anonymous');
+                    that.socket.emit('setIntro', {name: clientName});
+                })
+                // request friendlist for first time
+                this.requestFriendList();
+            },
+
+            requestFriendList: function(){
+                var that = this;
+                that.socket.emit('requestFriendList');
+            },
+
+            receiveFriendList: function () {
+                var that = this;
+                that.socket.on('receiveFriendList', function (data) {
+                    var friends = JSON.parse(data);
+                    $('#friendlist li').not('.caption').remove();
+                    for(f in friends){
+                        $('#friendlist').append($('<li class="online">' + friends[f] + '</li>'));
                     }
                 });
             }
@@ -81,6 +102,18 @@
 
         // create socket object
         SDNodeChatConf.socket = io(SDNodeChatConf.server + ':' + SDNodeChatConf.port);
+
+        //if connected client is new ask for intro
+        SDNodeChatConf.intro();
+
+        // Ask for friedlist every 3 min
+        setInterval(function(){
+            SDNodeChatConf.requestFriendList();
+        },10000);
+
+
+        // Listen for friend list and show them in list
+        SDNodeChatConf.receiveFriendList();
 
         // listen for new messages over socket
         SDNodeChatConf.listenForMessage();
