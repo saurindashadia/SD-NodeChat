@@ -5,62 +5,21 @@
  * @copyright    Copyright (C) 2014 Saurin Dashadia. All rights reserved.
  * @license      http://opensource.org/licenses/MIT, see LICENSE
  */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-body {
-    font: 13px Helvetica, Arial;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-div.action {
-    background: #AAA;
-    padding: 3px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
-div.action input {
-    border: 0 none;
-    display: inline-block;
-    margin-right: 0;
-    padding: 10px;
-    width: 100%;
-}
-
-div.action input[type=button] {
-    background: none repeat scroll 0 0 #666666;
-    border: 0 none;
-    padding: 10px;
-    width: 100px;
-    position: fixed;
-    bottom: 2px;
-    right: 0px;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-}
 
 #messages {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    float: left;
-    width: 100%;
-    display: block;
-    overflow: auto;
 }
 
 #messages li {
+    font-family: monospace;
+    font-weight: normal;
+    font-size: 12px;
     float: left;
-    display: block;
     width: 100%;
+    text-shadow: none;
 }
 
 #messages li.other {
@@ -121,4 +80,17 @@ p.name {
     color: #FFFFFF;
     display: inline-block;
     font-weight: bold;
+    margin: 0px;
+}
+
+.friendlist {
+
+}
+
+.friendlist > li.caption {
+    background: none repeat scroll 0 0 #EEE;
+}
+
+.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset{
+    margin-right: 85px;
 }
