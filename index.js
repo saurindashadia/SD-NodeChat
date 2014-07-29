@@ -36,16 +36,48 @@ var server = http.createServer(function (req, res) {
     }
 });
 
-var io = require("socket.io")(server);
-
 server.listen(config.port, config.server, function () {
     console.log('Server listning at ' + config.server + ':' + config.port);
 });
 
+var clients = [];
+var currentClients = [];
+var clientID = null;
+var clientIP = null;
+
+var io = require("socket.io")(server);
+
 io.on('connection', function (socket) {
-    console.log('Socket connected');
+    clientID = socket.id;
+    clientIP = socket.request.connection.remoteAddress;
+
+    // check if connected client is know to system
+    if (currentClients.indexOf(clientIP) === -1) {
+        socket.emit('getIntro');
+    }
+
+    // set intro sent by client
+    socket.on('setIntro', function (data) {
+        clients[clientID] = {
+            id: clientID,
+            name: data.name,
+            ip: clientIP
+        };
+
+        currentClients.push(clientIP);
+    });
+
+    socket.on('requestFriendList', function () {
+        var friendlist = [];
+        for (x in clients) {
+            friendlist.push(clients[x].name);
+        }
+        this.emit('receiveFriendList', JSON.stringify(friendlist));
+    });
+
+    // send received message to all clients.
     socket.on('sendmessage', function (data) {
-        console.log('message received');
+        data.message = '<p class="name">' + clients[data.sender]['name'] + '</p>&nbsp;&nbsp;&nbsp;' + data.message;
         io.emit('getmessage', data);
     });
 });
