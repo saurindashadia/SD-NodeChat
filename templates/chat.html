@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Socket.IO chat</title>
-        <link href="css/style.css" rel="stylesheet"/>
-    </head>
-    <body>
-        <ul id="messages">
-            <li class="dullmessage"><span>Welcome to Socket chat!<br/>This chat is design and developed by Saurin Dashadia.<br/>Proudly Powerd by: Node.js</span>
-            </li>
-        </ul>
-        <div class="action">
-            <input id="chatText" autocomplete="off"/>
-            <input type="button" value="Send" id="sendChat"/>
-        </div>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>SD-NodeChat</title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
+        <link href="css/style.css" rel="stylesheet" />
+        <style>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        </style>
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
         <script src="https://cdn.socket.io/socket.io-1.0.6.js"></script>
         <script src="js/script.js"></script>
         <script type="text/javascript">
             jQuery('document').ready(function () {
                 var chatHeight = jQuery(window).height() - jQuery('.action').height() - 15;
-                jQuery('#messages').css('height', chatHeight + 'px');
+                jQuery('#msgcontainer').css('height', chatHeight + 'px');
+
+                jQuery(window).resize(function(){
+                    jQuery('#container').css('height','100%');
+                })
 
                 // Initiate SDNodeChat plugin
                 var SDNodeChat = jQuery.initSDNodeChat({
@@ -31,8 +31,34 @@
                     chatBox: jQuery('#chatText'),
                     enterToSend: true
                 })
-
             });
         </script>
+    </head>
+
+    <body>
+        <div data-role="page">
+
+            <div data-role="header" data-position="fixed">
+                <h1>SD-NodeChat</h1>
+                <a href="#friend-panel" data-icon="bars" data-position="right" data-iconpos="notext">Online Friends</a>
+            </div><!-- /header -->
+
+            <div role="main" class="ui-content">
+                <ul id="messages">
+                    <li class="dullmessage"><span>Welcome to Socket chat!<br/>This chat is design and developed by Saurin Dashadia.<br/>Proudly Powerd by: Node.js</span></li>
+                </ul>
+            </div><!-- /content -->
+
+            <div data-role="footer" data-position="fixed">
+                <input type="text" id="chatText" autocomplete="off" placeholder="Send message..." />
+                <a class="ui-btn-right" data-icon="carat-r" data-iconpos="right" id="sendChat">Send</a>
+            </div><!-- /footer -->
+
+            <div data-role="panel" data-position-fixed="true" data-display="overlay" data-theme="a" id="friend-panel">
+                <ul data-role="listview" class="friendlist" id="friendlist">
+                    <li class="caption">Friends Online:</li>
+                </ul>
+            </div>
+        </div><!-- /page -->
     </body>
 </html>
