@@ -67,18 +67,18 @@ io.on('connection', function (socket) {
         currentClients.push(clientIP);
     });
 
-    socket.on('requestFriendList', function () {
+    socket.on('requestOnlineUsers', function () {
         var friendlist = [];
         for (x in clients) {
             friendlist.push(clients[x].name);
         }
-        this.emit('receiveFriendList', JSON.stringify(friendlist));
+        this.emit('receiveOnlineUsers', JSON.stringify(friendlist));
     });
 
     // send received message to all clients.
-    socket.on('sendmessage', function (data) {
+    socket.on('sendMessage', function (data) {
         data.message = '<p class="name">' + clients[data.sender]['name'] + '</p>&nbsp;&nbsp;&nbsp;' + data.message;
-        io.emit('getmessage', data);
+        io.emit('receiveMessage', data);
     });
 });
 
