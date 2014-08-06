@@ -83,11 +83,7 @@ p.name {
     margin: 0px;
 }
 
-.friendlist {
-
-}
-
-.friendlist > li.caption {
+.onlineUserList > li.caption {
     background: none repeat scroll 0 0 #EEE;
 }
 
