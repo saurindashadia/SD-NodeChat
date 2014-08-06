@@ -211,7 +211,7 @@
              */
             pushMessage: function (message, socket) {
                 message = message;
-                this.socket.emit('sendmessage', { message: message, sender: this.socket.io.engine.id });
+                this.socket.emit('sendMessage', { message: message, sender: this.socket.io.engine.id });
             }
         }
 
