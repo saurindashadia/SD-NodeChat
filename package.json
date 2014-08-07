@@ -1,20 +1,23 @@
 {
 	"name": "SD-NodeChat",
-	"preferGlobal": "false",
 	"version": "0.0.0",
 	"author": { 
 		"name": "Saurin Dashadia(SD)",
 		"email": "dev@saur.in",
 		"url": "http://saur.in"
 	},
-	"description": "Chat application using Node.js and socket.io",
+	"description": "A common-room chat application using Node.js and socket.io",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/devsaurin/SD-NodeChat.git"
 	},
 	"dependencies": {
 		"socket.io": "*"
-	}
+	},
+    "scripts": {
+        "start": "node SD-NodeChat.js"
+    },
+    "main": "SD-NodeChat.js"
 }
 
 
