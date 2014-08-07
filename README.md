@@ -29,7 +29,7 @@ npm install
 
 - Run `SD-NodeChat`
 ```sh
-node index.js
+node SD-NodeChat.js
 ```
 
 License
