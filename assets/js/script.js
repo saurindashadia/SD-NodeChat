@@ -26,7 +26,7 @@
              * @value       Port number
              * @usage       This will be consider as default port for the chat server
              */
-            port: "80",
+            port: "9999",
 
             /**
              * @default     $('#messages')
