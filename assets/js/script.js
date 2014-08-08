@@ -182,6 +182,8 @@
             addMessage: function (message, type) {
                 var li = '<li class="' + type + '"><span>' + message + '</span></li>';
                 $(this.chatContainer).append($(li));
+                // scroll to new content
+                this.scroller();
             },
 
 
@@ -212,6 +214,15 @@
             pushMessage: function (message, socket) {
                 message = message;
                 this.socket.emit('sendMessage', { message: message, sender: this.socket.io.engine.id });
+            },
+
+            /**
+             * @param       void
+             * @returns     void
+             * @usage       This function scrolls chat container to the new added message (bottom)
+             */
+            scroller:function(){
+                jQuery(document).scrollTop(jQuery(document).innerHeight());
             }
         }
 
