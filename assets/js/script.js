@@ -78,13 +78,23 @@
             socket: null,
 
             /**
-             * @default
-             * @returns {boolean}
+             * @default     sent=null, received=null
+             * @type        [object]
+             * @value       [object]
+             * @usage       This is common message object for sent and received messages.
              */
             message: {
                 sent: null,
                 received: null
             },
+
+            /**
+             * @default     "Welcome to SD-NodeChat! For more info visit <a href="https://github.com/devsaurin/SD-NodeChat">SD-NodeChat@GitHub</a>"
+             * @type        [text]
+             * @value       [text]
+             * @usage       This is to welcome a new user. It will be ignored if value not present.
+             */
+            welcomeNote: "Welcome to SD-NodeChat! For more info visit <a href=\"https://github.com/devsaurin/SD-NodeChat\">SD-NodeChat@GitHub</a>",
 
             /**
              * @param       void
@@ -223,6 +233,17 @@
              */
             scroller:function(){
                 jQuery(document).scrollTop(jQuery(document).innerHeight());
+            },
+
+            /**
+             * @param       void
+             * @returns     void
+             * @usage       This function is use to add welcome note to the chat
+             */
+            addWelcomeNote: function(){
+                if(this.welcomeNote){
+                    $(this.chatContainer).append($('<li class="dullmessage"><span>' + this.welcomeNote + '</span></li>'));
+                }
             }
         }
 
@@ -246,8 +267,11 @@
             SDNodeChatConf.socket = io();
         }
 
-        //if connected client is new ask for intro
+        //if connected client is new, ask for intro
         SDNodeChatConf._intro();
+
+        // Add welcome note
+        SDNodeChatConf.addWelcomeNote();
 
         // Ask for online user-list every 3 min
         setInterval(function(){
