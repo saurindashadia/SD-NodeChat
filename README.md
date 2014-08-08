@@ -32,6 +32,13 @@ npm install
 node SD-NodeChat.js
 ```
 
+Demo
+====
+
+Click here for [SD-NodeChat](http://sdnodechat.nodejitsu.com) demo.
+
+Hosted at [nodejitsu](https://www.nodejitsu.com/)
+
 License
 =======
 Copyright (c) 2014 Saurin Dashadia (SD)
