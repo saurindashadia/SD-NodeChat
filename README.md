@@ -35,7 +35,7 @@ node SD-NodeChat.js
 Demo
 ====
 
-Click here for [SD-NodeChat](http://sdnodechat.nodejitsu.com) demo.
+Click here for [SD-NodeChat](http://sdnodechat.jit.su) demo.
 
 Hosted at [nodejitsu](https://www.nodejitsu.com/)
 
