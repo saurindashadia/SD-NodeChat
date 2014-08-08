@@ -222,7 +222,18 @@
         SDNodeChatConf.server = SDNodeChatConf.server.replace(/\/$/, '');
 
         // create socket object
-        SDNodeChatConf.socket = io(SDNodeChatConf.server + ':' + SDNodeChatConf.port);
+        if(SDNodeChatConf.server && SDNodeChatConf.port){
+            //server + port
+            SDNodeChatConf.socket = io(SDNodeChatConf.server + ':' + SDNodeChatConf.port);
+        }else if(SDNodeChatConf.server && !SDNodeChatConf.port){
+            // server + !port
+            SDNodeChatConf.socket = io(SDNodeChatConf.server);
+        }else if( (!SDNodeChatConf.server && !SDNodeChatConf.port) || (!SDNodeChatConf.server && SDNodeChatConf.port)){
+            // !server + !port
+            SDNodeChatConf.socket = io();
+        }else{
+            SDNodeChatConf.socket = io();
+        }
 
         //if connected client is new ask for intro
         SDNodeChatConf._intro();
