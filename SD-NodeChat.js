@@ -36,9 +36,18 @@ var server = http.createServer(function (req, res) {
     }
 });
 
-server.listen(config.port, config.server, function () {
-    console.log('Server listning at ' + config.server + ':' + config.port);
-});
+if(config.server && config.port){
+    server.listen(config.port, config.server, function () {
+        console.log('Server listning at ' + config.server + ':' + config.port);
+    });
+}else if(!config.server && config.port){
+        server.listen(config.port, function () {
+            console.log('Server listning at port' + config.port);
+        });
+}else{
+    console.log('Error   :    SD-NodeChat application needs minimum a port number to create a server.');
+    console.log('Note    :    Please refer the documentation here https://github.com/devsaurin/SD-NodeChat');
+}
 
 var clients = [];
 var currentClients = [];
