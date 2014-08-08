@@ -39,6 +39,26 @@ Click here for [SD-NodeChat](http://sdnodechat.jit.su) demo.
 
 Hosted at [nodejitsu](https://www.nodejitsu.com/)
 
+
+Contribution
+=============
+You can contribute here by several ways:
+
+- Found any issue, report it [here](https://github.com/devsaurin/SD-NodeChat/issues) and label it as "Bug".
+- Want to request a new feature, ask [here](https://github.com/devsaurin/SD-NodeChat/issues) and label it as "Enhancement".
+
+If you are a developer and want to contribute to code:
+
+1. Fork a repository.
+2. Add your code.
+3. Create a pull request. (Yes! thats it.)
+
+
+Questions
+=========
+
+- Raise your questions [here](https://github.com/devsaurin/SD-NodeChat/issues) and label it as "Question".
+
 License
 =======
 Copyright (c) 2014 Saurin Dashadia (SD)
