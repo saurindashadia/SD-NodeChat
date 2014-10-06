@@ -1,4 +1,4 @@
 {
-	"server"	: "opensource.nodejitsu.com",
+	"server"	: "sdnodechat.nodejitsu.com",
 	"port"		: "8080"
 }
