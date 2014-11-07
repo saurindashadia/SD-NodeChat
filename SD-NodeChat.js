@@ -62,21 +62,21 @@ var io = require("socket.io")(server);
 io.on('connection', function (socket) {
     clientID = socket.id;
     clientIP = socket.request.connection.remoteAddress;
-
+    
     console.log('Info    :    New client connected from server: ' + clientIP);
 
-    // check if connected client is known to system
+    // check if connected client is know to system
     if (currentClients.indexOf(clientIP) === -1) {
         socket.emit('getIntro');
-
+        
         console.log('Info    :    Ask for client intro.');
     }
 
     // set intro sent by client
     socket.on('setIntro', function (data) {
-
-        console.log('Info    :    Received client intro.');
-
+		
+		console.log('Info    :    Received client intro.');
+		
         clients[clientID] = {
             id: clientID,
             name: data.name,
@@ -87,26 +87,26 @@ io.on('connection', function (socket) {
     });
 
     socket.on('requestOnlineUsers', function () {
-
-        console.log('Info    :    Received request for online users.');
-
+		
+		console.log('Info    :    Received request for online users.');
+		
         var friendlist = [];
         for (x in clients) {
             friendlist.push(clients[x].name);
         }
         this.emit('receiveOnlineUsers', JSON.stringify(friendlist));
-
+        
         console.log('Info    :    Online user list sent.');
     });
 
     // send received message to all clients.
     socket.on('sendMessage', function (data) {
-
-        console.log('Info    :    New message received.');
-
+		
+		console.log('Info    :    New message received.');
+		
         data.message = '<p class="name">' + clients[data.sender]['name'] + '</p>&nbsp;&nbsp;&nbsp;' + data.message;
         io.emit('receiveMessage', data);
-
+        
         console.log('Info    :    Message broadcast done.');
     });
 });

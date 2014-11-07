@@ -1,7 +1,7 @@
 {
 	"name": "SD-NodeChat",
-	"version": "0.0.0",
-	"author": { 
+	"version": "0.0.0-8",
+	"author": {
 		"name": "Saurin Dashadia(SD)",
 		"email": "dev@saur.in",
 		"url": "http://saur.in"
@@ -14,11 +14,12 @@
 	"dependencies": {
 		"socket.io": "*"
 	},
-    "scripts": {
-        "start": "node SD-NodeChat.js"
-    },
-    "main": "SD-NodeChat.js"
+	"scripts": {
+		"start": "node SD-NodeChat.js"
+	},
+	"main": "SD-NodeChat.js",
+	"subdomain": "sdnodechat",
+	"engines": {
+		"node": "0.10.x"
+	}
 }
-
-
-

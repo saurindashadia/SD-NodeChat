@@ -192,7 +192,6 @@
             addMessage: function (message, type) {
                 var li = '<li class="' + type + '"><span>' + message + '</span></li>';
                 $(this.chatContainer).append($(li));
-                // scroll to new content
                 this.scroller();
             },
 
@@ -225,7 +224,7 @@
                 message = message;
                 this.socket.emit('sendMessage', { message: message, sender: this.socket.io.engine.id });
             },
-
+            
             /**
              * @param       void
              * @returns     void
@@ -234,7 +233,7 @@
             scroller:function(){
                 jQuery(document).scrollTop(jQuery(document).innerHeight());
             },
-
+            
             /**
              * @param       void
              * @returns     void
@@ -269,7 +268,7 @@
 
         //if connected client is new, ask for intro
         SDNodeChatConf._intro();
-
+        
         // Add welcome note
         SDNodeChatConf.addWelcomeNote();
 
