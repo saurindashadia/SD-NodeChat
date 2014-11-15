@@ -11,6 +11,8 @@ var fs = require("fs");
 var config = JSON.parse(fs.readFileSync("config.json", "UTF8"));
 
 var logMessage = function(msg, msgType, isDebug){
+    var d = new Date();
+    var t = d.getFullYear() + '-' + ("0" + d.getMonth()).slice(-2) + '-' + ("0" + d.getDate()).slice(-2) + ' ' + ("0" + d.getHours()).slice(-2) + ':' + ("0" + d.getMinutes()).slice(-2) + ':' + ("0" + d.getSeconds()).slice(-2);
     switch(msgType){
         case 'Error':
         case 'error':
@@ -30,7 +32,7 @@ var logMessage = function(msg, msgType, isDebug){
     }
 
     if(typeof isDebug === 'undefined') isDebug = config.debug;
-    if(isDebug) console.log(msgType + msg);
+    if(isDebug) console.log('(' + t + ') ' + msgType + msg);
 }
 
 var server = http.createServer(function (req, res) {
