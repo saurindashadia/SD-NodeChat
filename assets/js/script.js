@@ -26,7 +26,7 @@
              * @value       Port number
              * @usage       This will be consider as default port for the chat server
              */
-            port: "9999",
+            port: "80",
 
             /**
              * @default     false
