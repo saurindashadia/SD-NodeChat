@@ -29,6 +29,14 @@
             port: "9999",
 
             /**
+             * @default     false
+             * @type        boolean
+             * @value       true/false
+             * @usage       This can enable or disable log on server side.
+             */
+            debug: false,
+
+            /**
              * @default     $('#messages')
              * @type        [object HTMLUListElement]
              * @value       [object HTMLUListElement]
@@ -95,6 +103,22 @@
              * @usage       This is to welcome a new user. It will be ignored if value not present.
              */
             welcomeNote: "Welcome to SD-NodeChat! For more info visit <a href=\"https://github.com/devsaurin/SD-NodeChat\">SD-NodeChat@GitHub</a>",
+
+
+
+
+
+            /**
+             * @param       void
+             * @returns     string
+             * @usage       This function is to query clients basic info usually a name which can be use to identify
+             *              user in chat room
+             */
+            logMessage: function(msg,isDebug){
+                // Follow global debug flag if local flag not set.
+                if(typeof isDebug === 'undefined') isDebug = this.debug;
+                if(isDebug) console.log(msg);
+            },
 
             /**
              * @param       void
