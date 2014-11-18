@@ -11,28 +11,24 @@ var fs = require("fs");
 var config = JSON.parse(fs.readFileSync("config.json", "UTF8"));
 
 var logMessage = function(msg, msgType, isDebug){
-    var d = new Date();
-    var t = d.getFullYear() + '-' + ("0" + d.getMonth()).slice(-2) + '-' + ("0" + d.getDate()).slice(-2) + ' ' + ("0" + d.getHours()).slice(-2) + ':' + ("0" + d.getMinutes()).slice(-2) + ':' + ("0" + d.getSeconds()).slice(-2);
-    switch(msgType){
-        case 'Error':
-        case 'error':
-            msgType = 'Error   :    ';
-            break;
-
-        case 'Note':
-        case 'note':
-            msgType = 'Note    :    ';
-            break;
-
-        case 'Info':
-        case 'info':
-        default:
-            msgType = 'Info    :    ';
-            break;
-    }
-
+    //check if local debug flag is set, else use config value.
     if(typeof isDebug === 'undefined') isDebug = config.debug;
-    if(isDebug) console.log('(' + t + ') ' + msgType + msg);
+
+    //log only if debug is true.
+    if(isDebug){
+        // get date object
+        var d = new Date();
+        // get full date in format 'YYYY-MM-DD hh:mm:ss'
+        var t = d.getFullYear() + '-' + ("0" + d.getMonth()).slice(-2) + '-' + ("0" + d.getDate()).slice(-2) + ' ' + ("0" + d.getHours()).slice(-2) + ':' + ("0" + d.getMinutes()).slice(-2) + ':' + ("0" + d.getSeconds()).slice(-2);
+
+        // capitalize first character
+        msgType = (msgType) ? (msgType.charAt(0).toUpperCase() + msgType.slice(1).toLowerCase()) : 'Error';
+        // get 8 charcter log string
+        msgType = (msgType + '        ').slice(8) + ':    ';
+
+        // log message
+        console.log('(' + t + ') ' + msgType + msg);
+    }
 }
 
 var server = http.createServer(function (req, res) {
@@ -100,13 +96,13 @@ io.on('connection', function (socket) {
     // set intro sent by client
     socket.on('setIntro', function (data) {
 
-        logMessage('Received client intro.');
-
         clients[clientID] = {
             id: clientID,
             name: data.name,
             ip: clientIP
         };
+
+        logMessage('Received client intro. ' + clients[clientID]);
 
         currentClients.push(clientIP);
     });
@@ -134,5 +130,10 @@ io.on('connection', function (socket) {
 
         logMessage('Message broadcast done.');
     });
+
+    socket.on('disconnect', function(){
+        logMessage('Client left. ' + clients[clientID]);
+        delete clients[clientID];
+    })
 });
 
