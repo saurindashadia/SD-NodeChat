@@ -84,10 +84,11 @@ io.on('connection', function (socket) {
     clientID = socket.id;
     clientIP = socket.request.connection.remoteAddress;
 
-    logMessage('New client connected from server: ' + clientIP);
-
     // check if connected client is known to system
     if (currentClients.indexOf(clientIP) === -1) {
+
+        logMessage('New client connected from server: ' + clientIP);
+
         socket.emit('getIntro');
 
         logMessage('Ask for client intro.');
@@ -102,7 +103,7 @@ io.on('connection', function (socket) {
             ip: clientIP
         };
 
-        logMessage('Received client intro. ' + clients[clientID]);
+        logMessage('Received client intro.');
 
         currentClients.push(clientIP);
     });
