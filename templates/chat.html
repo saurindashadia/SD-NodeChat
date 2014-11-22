@@ -10,7 +10,7 @@
 
     <body>
         <!-- login dialog -->
-        <div data-role="page" data-dialog="true" data-close-btn="none">
+        <div data-role="page" id="login" data-dialog="true" data-close-btn="none">
 
             <div data-role="header">
                 <h1>SD-NodeChat</h1>
@@ -23,7 +23,7 @@
 
         </div><!-- /page -->
 
-        <div data-role="page">
+        <div data-role="page" id="chat">
 
             <div data-role="header" data-position="fixed">
                 <h1>SD-NodeChat</h1>
@@ -78,7 +78,9 @@
                                 sendButton: jQuery('#sendChat'),
                                 chatBox: jQuery('#chatTextBox'),
                                 usersContainer: jQuery('#userContainer')
-                            })
+                            });
+
+                            $.mobile
                         }
                     }
                 });
