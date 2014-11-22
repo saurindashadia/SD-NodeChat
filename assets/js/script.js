@@ -37,6 +37,14 @@
             debug: false,
 
             /**
+             * @default     null
+             * @type        Text
+             * @value       username
+             * @usage       This can enable or disable log on server side.
+             */
+            username: null,
+
+            /**
              * @default     $('#messages')
              * @type        [object HTMLUListElement]
              * @value       [object HTMLUListElement]
@@ -130,25 +138,10 @@
              * @todo        Define this function private, this function should not be the part of API
              */
             _intro: function () {
-                var that = this;
-
-                that.socket.on('getIntro', function (data) {
-                    var clientName = that.getIntro();
-                    that.socket.emit('setIntro', {name: clientName});
-                })
+                this.socket.emit('addUser', {username: this.username});
 
                 // Request for friend-list
                 that.requestOnlineUsers();
-            },
-
-            /**
-             * @param       void
-             * @returns     string
-             * @usage       This function is to query clients basic info usually a name which can be use to identify
-             *              user in chat room
-             */
-            getIntro:function(){
-                return prompt('Please intro yourself to chatroom!', 'anonymous');
             },
 
             /**
@@ -272,61 +265,58 @@
         }
 
         // extend default vaules
-        var SDNodeChatConf = $.extend(_defaults, options);
+        var SDNodeChat = $.extend(_defaults, options);
 
-        // remove trailing slash from URL if there any using regular expression
-        SDNodeChatConf.server = SDNodeChatConf.server.replace(/\/$/, '');
+        // remove trailing slash from URL using regular expression, if there any.
+        SDNodeChat.server = SDNodeChat.server.replace(/\/$/, '');
 
         // create socket object
-        if(SDNodeChatConf.server && SDNodeChatConf.port){
+        if(SDNodeChat.server && SDNodeChat.port){
             //server + port
-            SDNodeChatConf.socket = io(SDNodeChatConf.server + ':' + SDNodeChatConf.port);
-        }else if(SDNodeChatConf.server && !SDNodeChatConf.port){
+            SDNodeChat.socket = io(SDNodeChat.server + ':' + SDNodeChat.port);
+        }else if(SDNodeChat.server && !SDNodeChat.port){
             // server + !port
-            SDNodeChatConf.socket = io(SDNodeChatConf.server);
-        }else if( (!SDNodeChatConf.server && !SDNodeChatConf.port) || (!SDNodeChatConf.server && SDNodeChatConf.port)){
-            // !server + !port
-            SDNodeChatConf.socket = io();
+            SDNodeChat.socket = io(SDNodeChat.server);
         }else{
-            SDNodeChatConf.socket = io();
+            SDNodeChat.socket = io();
         }
 
         //if connected client is new, ask for intro
-        SDNodeChatConf._intro();
+        SDNodeChat._intro();
 
         // Add welcome note
-        SDNodeChatConf.addWelcomeNote();
+        SDNodeChat.addWelcomeNote();
 
         // Ask for online user-list every 3 min
         setInterval(function(){
-            SDNodeChatConf.requestOnlineUsers();
+            SDNodeChat.requestOnlineUsers();
         },10000);
 
         // Listen for online user list and show them in list
-        SDNodeChatConf.receiveOnlineUsers();
+        SDNodeChat.receiveOnlineUsers();
 
         // listen for new messages over socket
-        SDNodeChatConf.listenForMessages();
+        SDNodeChat.listenForMessages();
 
         // Bind click event to sendButton
-        SDNodeChatConf.sendButton.click(function () {
-            SDNodeChatConf.sendMessage(SDNodeChatConf);
+        SDNodeChat.sendButton.click(function () {
+            SDNodeChat.sendMessage(SDNodeChat);
         });
 
         // Bind chatbox to enter press if config set to truesendMessage
-        if (SDNodeChatConf.enterToSend === true) {
-            SDNodeChatConf.chatBox.bind('keypress', function (e) {
+        if (SDNodeChat.enterToSend === true) {
+            SDNodeChat.chatBox.bind('keypress', function (e) {
                 // check if key is enter key
                 if (e.keyCode == 13) {
-                    SDNodeChatConf.sendMessage();
+                    SDNodeChat.sendMessage();
                 }
             });
         }
 
         // Set focus to chatbox
-        SDNodeChatConf.chatBox.focus();
+        SDNodeChat.chatBox.focus();
 
-        return SDNodeChatConf;
+        return SDNodeChat;
     };
     
 }(window, document, jQuery));
