@@ -97,6 +97,13 @@ p.name {
     background: none repeat scroll 0 0 #EEE;
 }
 
-.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset{
-    margin-right: 85px;
+.ui-input-text{
+    border-radius: 0px;
+    border-width: 0 0 1px 0;
+    background-color: #FAFAFA !important;
+    box-shadow: 0px 0px 0px #bbb inset;
+}
+.ui-input-text.ui-focus{
+    background-color: #FFF !important;
+    box-shadow: 0px 0px 0px #bbb inset;
 }
