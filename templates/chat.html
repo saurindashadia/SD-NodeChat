@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,6 +9,20 @@
     </head>
 
     <body>
+        <!-- login dialog -->
+        <div data-role="page" data-dialog="true" data-close-btn="none">
+
+            <div data-role="header">
+                <h1>SD-NodeChat</h1>
+            </div><!-- /header -->
+
+            <div role="main" class="ui-content">
+                <h2>What whould you like to be called?</h2>
+                <input type="text" id="sd-username" name="username" placeholder="Username" data-clear-btn="true">
+            </div><!-- /content -->
+
+        </div><!-- /page -->
+
         <div data-role="page">
 
             <div data-role="header" data-position="fixed">
@@ -39,6 +53,8 @@
         <script src="js/script.js"></script>
         <script type="text/javascript">
             jQuery('document').ready(function () {
+                var SDNodeChat;
+
                 var chatHeight = jQuery(window).height() - jQuery('.action').height() - 15;
                 jQuery('#msgcontainer').css('height', chatHeight + 'px');
 
@@ -46,17 +62,26 @@
                     jQuery('#container').css('height','100%');
                 });
 
-                // Initiate SDNodeChat plugin
-                var SDNodeChat = jQuery.initSDNodeChat({
-                    server: 'http://127.0.0.1',
-                    port: '9999',
-                    chatContainer: jQuery('#messages'),
-                    sendButton: jQuery('#sendChat'),
-                    chatBox: jQuery('#chatTextBox'),
-                    usersContainer: jQuery('#userContainer'),
-                    enterToSend: true,
-                    debug: true
-                })
+                jQuery('#sd-username').bind('keypress', function (e) {
+                    // check if key is enter key
+                    if (e.keyCode == 13) {
+                        var username = this.value.trim();
+                        if(username){
+                            // Initiate SDNodeChat plugin
+                            SDNodeChat = jQuery.initSDNodeChat({
+                                server: 'http://127.0.0.1',
+                                port: '9999',
+                                debug: true,
+                                enterToSend: true,
+                                username: username,
+                                chatContainer: jQuery('#messages'),
+                                sendButton: jQuery('#sendChat'),
+                                chatBox: jQuery('#chatTextBox'),
+                                usersContainer: jQuery('#userContainer')
+                            })
+                        }
+                    }
+                });
             });
         </script>
     </body>
