@@ -141,12 +141,11 @@ io.on('connection', function (socket) {
     });
 
     // send received message to all clients.
-    socket.on('sendMessage', function (data) {
+    socket.on('newMsg', function (data) {
 
         SDNodeChat.logMessage('New message received.');
 
-        data.message = '<p class="name">' + clients[data.sender]['name'] + '</p>&nbsp;&nbsp;&nbsp;' + data.message;
-        io.emit('receiveMessage', data);
+        socket.broadcast.emit('newMsg', data);
 
         SDNodeChat.logMessage('Message broadcast done.');
     });
