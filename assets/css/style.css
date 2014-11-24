@@ -39,14 +39,14 @@
     word-wrap: break-word;
 }
 
-#messages li.dullmessage {
+#messages li.note {
     background: #EEE; /* Old browsers */
     float: left;
     color: #bbb;
     text-align: center;
 }
 
-#messages li.dullmessage a {
+#messages li.note a {
     text-decoration: none;
 }
 
