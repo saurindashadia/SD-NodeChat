@@ -68,7 +68,7 @@
                         var username = this.value.trim();
                         if(username){
                             // Initiate SDNodeChat plugin
-                            SDNodeChat = jQuery.initSDNodeChat({
+                            SDNodeChat = jQuery.SDNodeChat({
                                 server: 'http://127.0.0.1',
                                 port: '9999',
                                 debug: true,
@@ -80,7 +80,14 @@
                                 usersContainer: jQuery('#userContainer')
                             });
 
-                            $.mobile
+                            SDNodeChat.init(function(){
+                                // navigate to chat window.
+                                $.mobile.navigate('#chat');
+                            },
+                            function(){
+                                //navigate to login window.
+                                $.mobile.navigate('#login');
+                            });
                         }
                     }
                 });
