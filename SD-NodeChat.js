@@ -104,39 +104,27 @@ if(SDNodeChat.config.server && SDNodeChat.config.port){
     SDNodeChat.logMessage('Please refer the documentation here https://github.com/devsaurin/SD-NodeChat', 'Note');
 }
 
-var clients = [];
-var currentClients = [];
-var clientID = null;
-var clientIP = null;
+var users = [];
 
 var io = require("socket.io")(SDNodeChat._server);
 
 io.on('connection', function (socket) {
-    clientID = socket.id;
-    clientIP = socket.request.connection.remoteAddress;
+    var clientID = socket.id;
+    var clientIP = socket.request.connection.remoteAddress;
+    var userAdded = false;
 
-    // check if connected client is known to system
-    if (currentClients.indexOf(clientIP) === -1) {
-
-        SDNodeChat.logMessage('New client connected from server: ' + clientIP);
-
-        socket.emit('getIntro');
-
-        SDNodeChat.logMessage('Ask for client intro.');
-    }
+    SDNodeChat.logMessage('New user connected from server: ' + clientIP);
 
     // set intro sent by client
-    socket.on('setIntro', function (data) {
+    socket.on('addUser', function (data) {
+        SDNodeChat.logMessage('Received user');
+        if(users.indexOf(data.username) === -1){
+            // if usename is not in use add to users
+            users.push(data.username);
+            userAdded = true;
+        }
 
-        clients[clientID] = {
-            id: clientID,
-            name: data.name,
-            ip: clientIP
-        };
-
-        SDNodeChat.logMessage('Received client intro.');
-
-        currentClients.push(clientIP);
+        this.emit('userAdded',{username:data.username,success:userAdded});
     });
 
     socket.on('requestOnlineUsers', function () {
