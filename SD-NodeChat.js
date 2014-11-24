@@ -130,15 +130,11 @@ io.on('connection', function (socket) {
         this.emit('userAdded',{username:data.username,success:userAdded});
     });
 
-    socket.on('requestOnlineUsers', function () {
+    socket.on('userList', function () {
 
         SDNodeChat.logMessage('Received request for online users.');
 
-        var friendlist = [];
-        for (x in clients) {
-            friendlist.push(users[x]);
-        }
-        this.emit('receiveOnlineUsers', JSON.stringify(friendlist));
+        this.emit('userList', JSON.stringify(users));
 
         SDNodeChat.logMessage('Online user list sent.');
     });
