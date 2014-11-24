@@ -105,23 +105,26 @@ if(SDNodeChat.config.server && SDNodeChat.config.port){
 }
 
 var users = [];
-
 var io = require("socket.io")(SDNodeChat._server);
 
 io.on('connection', function (socket) {
     var clientID = socket.id;
     var clientIP = socket.request.connection.remoteAddress;
     var userAdded = false;
+    var username = '';
 
     SDNodeChat.logMessage('New user connected from server: ' + clientIP);
 
     // set intro sent by client
     socket.on('addUser', function (data) {
-        SDNodeChat.logMessage('Received user');
+        SDNodeChat.logMessage('Received user info');
         if(users.indexOf(data.username) === -1){
             // if usename is not in use add to users
             users.push(data.username);
             userAdded = true;
+            username = data.username;
+
+            SDNodeChat.logMessage('User "' + data.username + '" added.');
         }
 
         this.emit('userAdded',{username:data.username,success:userAdded});
@@ -133,7 +136,7 @@ io.on('connection', function (socket) {
 
         var friendlist = [];
         for (x in clients) {
-            friendlist.push(clients[x].name);
+            friendlist.push(users[x]);
         }
         this.emit('receiveOnlineUsers', JSON.stringify(friendlist));
 
@@ -151,7 +154,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on('disconnect', function(){
-        SDNodeChat.logMessage('Client left. ' + clients[clientID]);
-        delete clients[clientID];
+        SDNodeChat.logMessage('User ' + users[username] + ' left.');
+        delete users[username];
     })
 });
