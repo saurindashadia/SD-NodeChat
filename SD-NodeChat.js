@@ -50,7 +50,6 @@ var SDNodeChat = {
      * @usage callback function for http.createServer
      */
     createServer_cb: function(req, res){
-        console.log(req.url);
         switch (req.url) {
             case '/css/style.css':
                 res.writeHead('200', {"content-Type": "text/css"});
