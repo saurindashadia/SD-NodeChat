@@ -53,7 +53,7 @@
         <script src="js/script.js"></script>
         <script type="text/javascript">
             jQuery('document').ready(function () {
-                var SDNodeChat;
+                var SDNodeChat, username;
 
                 var chatHeight = jQuery(window).height() - jQuery('.action').height() - 15;
                 jQuery('#msgcontainer').css('height', chatHeight + 'px');
@@ -62,10 +62,15 @@
                     jQuery('#container').css('height','100%');
                 });
 
+                if(!username && $.mobile.activePage.attr('id')!=='login'){
+                    //navigate to login window.
+                    $.mobile.navigate('#login');
+                }
+
                 jQuery('#sd-username').bind('keypress', function (e) {
                     // check if key is enter key
                     if (e.keyCode == 13) {
-                        var username = this.value.trim();
+                        username = this.value.trim();
                         if(username){
                             // Initiate SDNodeChat plugin
                             SDNodeChat = jQuery.SDNodeChat({
@@ -93,6 +98,9 @@
                             $('#userlist').click(function () {
                                 SDNodeChat.getUserList();
                             });
+                        }else{
+                            //navigate to login window.
+                            $.mobile.navigate('#login');
                         }
                     }
                 });
