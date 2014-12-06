@@ -153,5 +153,8 @@ io.on('connection', function (socket) {
         SDNodeChat.logMessage('User "' + username + '" left.');
 
         delete users[users.indexOf(username)];
+
+        // remove undefined entry from array
+        users.sort().pop();
     })
 });
