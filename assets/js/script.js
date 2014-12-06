@@ -174,6 +174,11 @@
                             that.addMsg(_sdnc.welcomeNote,'note');
                         }
 
+                        // listen for new user joins
+                        _sdnc.socket.on('newUser', function (data) {
+                            that.addMsg(data.username + ' has joined chat.', 'note');
+                        });
+
                         // listen for new messages over socket
                         _sdnc.socket.on('newMsg', function (data) {
                             that.addMsg(data.username + ': ' +data.message, 'other');
