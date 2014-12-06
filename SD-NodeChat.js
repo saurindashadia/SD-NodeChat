@@ -103,6 +103,7 @@ if(SDNodeChat.config.server && SDNodeChat.config.port){
     SDNodeChat.logMessage('Please refer the documentation here https://github.com/devsaurin/SD-NodeChat', 'Note');
 }
 
+// current userlist
 var users = [];
 var io = require("socket.io")(SDNodeChat._server);
 
@@ -123,7 +124,7 @@ io.on('connection', function (socket) {
             userAdded = true;
             username = data.username;
 
-            SDNodeChat.logMessage('User "' + data.username + '" added.');
+            SDNodeChat.logMessage('User "' + username + '" added.');
         }
 
         this.emit('userAdded',{username:data.username,success:userAdded});
@@ -149,7 +150,8 @@ io.on('connection', function (socket) {
     });
 
     socket.on('disconnect', function(){
-        SDNodeChat.logMessage('User ' + users[username] + ' left.');
-        delete users[username];
+        SDNodeChat.logMessage('User "' + username + '" left.');
+
+        delete users[users.indexOf(username)];
     })
 });
