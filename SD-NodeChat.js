@@ -125,9 +125,12 @@ io.on('connection', function (socket) {
             username = data.username;
 
             SDNodeChat.logMessage('User "' + username + '" added.');
+
+            // broadcast new user joint
+            socket.broadcast.emit('newUser', {username:username});
         }
 
-        this.emit('userAdded',{username:data.username,success:userAdded});
+        this.emit('userAdded',{username:username,success:userAdded});
     });
 
     socket.on('userList', function () {
