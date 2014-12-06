@@ -159,5 +159,8 @@ io.on('connection', function (socket) {
 
         // remove undefined entry from array
         users.sort().pop();
+
+        //broadcast on user left chat
+        socket.broadcast.emit('userLeft', {username:username});
     })
 });
