@@ -62,8 +62,8 @@
                     jQuery('#container').css('height','100%');
                 });
 
-                if(!username && $.mobile.activePage.attr('id')!=='login'){
-                    //navigate to login window.
+                if(!username){
+                    //navigate to login window if user not defined yet
                     $.mobile.navigate('#login');
                 }
 
