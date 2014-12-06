@@ -64,7 +64,7 @@
     background: linear-gradient(to bottom, #8fc800 0%, #8fc800 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8fc800', endColorstr='#8fc800', GradientType=0); /* IE6-9 */
     float: left;
-    margin: 5px 75% 5px 10px;
+    margin: 5px 25% 5px 10px;
     color: #333;
 }
 
@@ -78,7 +78,7 @@
     background: linear-gradient(to bottom, #4096ee 0%, #4096ee 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4096ee', endColorstr='#4096ee', GradientType=0); /* IE6-9 */
     float: right;
-    margin: 5px 10px 5px 75%;
+    margin: 5px 10px 5px 25%;
     color: #fff;
 }
 
