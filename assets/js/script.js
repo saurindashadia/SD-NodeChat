@@ -277,8 +277,3 @@
     };
     
 }(window, document, jQuery));
-
-
-
-
-
