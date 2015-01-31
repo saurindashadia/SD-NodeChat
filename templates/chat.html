@@ -64,14 +64,21 @@
 
                 if(!username){
                     //navigate to login window if user not defined yet
-                    $.mobile.navigate('#login');
+                    jQuery.mobile.navigate('#login');
                 }
 
                 jQuery('#sd-username').bind('keypress', function (e) {
+
                     // check if key is enter key
                     if (e.keyCode == 13) {
+
                         username = this.value.trim();
+
                         if(username){
+
+                            // unbind keypress to prevent multiple enter key hit
+                            jQuery(this).unbind('keypress');
+
                             // Initiate SDNodeChat plugin
                             SDNodeChat = jQuery.SDNodeChat({
                                 server: 'http://127.0.0.1',
@@ -85,13 +92,13 @@
                                 usersContainer: jQuery('#userContainer')
                             });
 
-                            SDNodeChat.init(function(){
+                            SDNodeChat.init(function(e){
                                 // navigate to chat window.
-                                $.mobile.navigate('#chat');
+                                jQuery.mobile.navigate('#chat');
                             },
                             function(){
                                 //navigate to login window.
-                                $.mobile.navigate('#login');
+                                jQuery.mobile.navigate('#login');
                             });
 
                             // Bind click event to userlist
@@ -100,7 +107,7 @@
                             });
                         }else{
                             //navigate to login window.
-                            $.mobile.navigate('#login');
+                            jQuery.mobile.navigate('#login');
                         }
                     }
                 });
