@@ -134,7 +134,7 @@
              */
             sendMsg: function () {
 
-                var message = SDNodeChatConf.chatBox.val();
+                var message = SDNodeChatConf.chatBox.val().trim();
                 if (!message) return false;
 
                 this.addMsg(message, 'self');
