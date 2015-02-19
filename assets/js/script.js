@@ -107,6 +107,11 @@
         // remove trailing slash from URL using regular expression, if there any.
         SDNodeChatConf.server = SDNodeChatConf.server.replace(/\/$/, '');
 
+        // Regualr expression for URL
+        SDNodeChatConf.pattern = {};
+        SDNodeChatConf.pattern.URL = /(https|http)(:\/\/)([\w\d.-]+)(:[\d]+)?([\/\w\d._-]+)?(\?[\w\d=&-_+!@%\+]+)?(#[\w\d!=%\+]+)?/ig;
+        SDNodeChatConf.pattern.URLPlaceholder = '$1$2$3$4$5$6$7';
+
         return {
             /**
              *
@@ -137,6 +142,8 @@
                 var message = SDNodeChatConf.chatBox.val().trim();
                 if (!message) return false;
 
+                message = this.formatLink(message);
+
                 this.addMsg(message, 'self');
                 this.pushMsg(message);
 
@@ -146,7 +153,15 @@
 
             /**
              * @param       message {Text}
-             * @param       socket  {object}
+             * @returns     message {Text}
+             * @usage       This function will push a user message to server
+             */
+            formatLink: function (message) {
+                return message.replace(SDNodeChatConf.pattern.URL, '<a target="_blank" href="' + SDNodeChatConf.pattern.URLPlaceholder + '">' + SDNodeChatConf.pattern.URLPlaceholder + '</a>');
+            },
+
+            /**
+             * @param       message {Text}
              * @returns     void
              * @usage       This function will push a user message to server
              */
