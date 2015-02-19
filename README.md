@@ -22,7 +22,7 @@ For `node.js` installation please visit [Node.js download page](http://nodejs.or
 
 **How-to install `SD-NodeChat`**
 
-- Download `ZIP` file and extract it, where you want to install `SD-NodeChat`. 
+- Download latest [ZIP](https://github.com/devsaurin/SD-NodeChat/archive/v1.0.0.zip)/[TAR](https://github.com/devsaurin/SD-NodeChat/archive/v1.0.0.tar.gz) package file and extract it, where you want to install `SD-NodeChat`.
 
 - Open terminal and go to `SD-NodeChat` directory.
 ```sh
@@ -58,7 +58,7 @@ If you are a developer and want to contribute to code:
 
 1. Fork a repository.
 2. Add your code.
-3. Create a pull request. (Yes! thats it.)
+3. Create a pull request. (Yes! that's it.)
 
 
 Questions
