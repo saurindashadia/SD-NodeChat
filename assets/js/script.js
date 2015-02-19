@@ -154,7 +154,7 @@
             /**
              * @param       message {Text}
              * @returns     message {Text}
-             * @usage       This function will push a user message to server
+             * @usage       This function will identify URLs inside message body and will transform them to links.
              */
             formatLink: function (message) {
                 return message.replace(SDNodeChatConf.pattern.URL, '<a target="_blank" href="' + SDNodeChatConf.pattern.URLPlaceholder + '">' + SDNodeChatConf.pattern.URLPlaceholder + '</a>');
