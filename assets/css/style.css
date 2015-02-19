@@ -52,6 +52,7 @@
     float: left;
     color: #bbb;
     text-align: center;
+    border: 1px solid #fff;
 }
 
 #messages li.note a {
