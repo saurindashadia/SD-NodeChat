@@ -31,6 +31,10 @@
     background-color: rgba(64, 150, 238, 0.2);
 }
 
+#messages li.other a, #messages li.self a {
+    color: yellow;
+}
+
 #messages li span {
     border-radius: 3px;
     clear: both;
