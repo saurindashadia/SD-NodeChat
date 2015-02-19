@@ -2,6 +2,13 @@ SD-NodeChat
 ===========
 A single-room chat application using Node.js & Socket.io
 
+Features
+========
+- Open for anyone. Join anytime leave anytime.
+- You only need nick name to enter to chat room. No email, no sign-up, no password. :)
+- Log free chat. Log free participants.
+- Join anytime, anywhere from any device.
+
 
 Installation
 ============
